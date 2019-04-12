@@ -1,4 +1,4 @@
-package gl51.project
+package projet.gl51
 
 import io.micronaut.runtime.Micronaut
 import groovy.transform.CompileStatic
