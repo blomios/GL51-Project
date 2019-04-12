@@ -11,7 +11,7 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     List<Product> all() {
-        return store
+        return []
     }
 
     @Override
