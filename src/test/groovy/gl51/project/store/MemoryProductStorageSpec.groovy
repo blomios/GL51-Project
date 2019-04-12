@@ -23,4 +23,39 @@ class MemoryProductStorageSpec extends Specification {
         all.size() == 1
         all.first().name == name
     }
+
+    def "adding a product will generate a new id"() {
+        setup:
+        store.save(new Product(name: "blblbl"))
+
+        when:
+        def all = store.all()
+
+        then:
+        all.find({p -> p.name == "blblbl"}).id != null
+    }
+
+    def "deleting a product will remove it from the list"(){
+        setup:
+        String testID = store.save(new Product(name: "thirdTest"))
+        store.delete(testID)
+
+        when:
+        def all = store.all()
+
+        then:
+        all.find({p -> p.id == testID}) == null
+    }
+
+    def "modifying a product will change it in the list"(){
+
+    }
+
+    def "getting a product by its id will throw a NotExistingProductException if it does not exits"(){
+
+    }
+
+    def "getting a product by its id will return it if it does exist"(){
+
+    }
 }

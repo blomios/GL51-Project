@@ -15,8 +15,10 @@ class MemoryProductStorage implements ProductStorage {
     }
 
     @Override
-    void save(Product p) {
-        store.put(p.id, p);
+    String save(Product p) {
+        p.id = UUID.randomUUID().toString()
+        store.put(p.id, p)
+        return p.id
     }
 
     @Override
@@ -26,6 +28,6 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     void delete(String id) {
-
+        store.remove(id);
     }
 }

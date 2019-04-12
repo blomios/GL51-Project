@@ -19,8 +19,9 @@ interface ProductStorage {
     /**
      * Store a new product
      * @param product the product store
+     * @return the id of the product
      */
-    void save(Product p);
+    String save(Product p);
 
     /**
      * Update a product in the store
