@@ -11,12 +11,12 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     List<Product> all() {
-        return []
+        return store.values().toList()
     }
 
     @Override
     void save(Product p) {
-
+        store.put(p.id, p);
     }
 
     @Override
