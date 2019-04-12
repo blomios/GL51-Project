@@ -47,15 +47,29 @@ class MemoryProductStorageSpec extends Specification {
         all.find({p -> p.id == testID}) == null
     }
 
-    def "modifying a product will change it in the list"(){
+    def "modifying a product will change it in the list"() {
+        setup:
+        String pName = "The Tasty Ball"
+        String pDesc = "The tasty ball is very tasty"
+        String pID = store.save(new Product(name: pName))
+        Product newVersion = new Product(id: pID, name: pName, description: pDesc)
+
+        when:
+
+        store.update(pID, newVersion)
+
+        then:
+        Product p = store.all().first()
+        p.id == pID
+        p.name == pName
+        p.description == pDesc
+    }
+
+    def "getting a product by its id will throw a NotExistingProductException if it does not exits"() {
 
     }
 
-    def "getting a product by its id will throw a NotExistingProductException if it does not exits"(){
-
-    }
-
-    def "getting a product by its id will return it if it does exist"(){
+    def "getting a product by its id will return it if it does exist"() {
 
     }
 }
