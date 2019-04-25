@@ -1,5 +1,7 @@
 package gl51.project.store
 
+import gl51.project.store.exception.NotExistingProductException
+import gl51.project.store.exception.WrongIdException
 import spock.lang.Specification
 
 class MemoryProductStorageSpec extends Specification {
@@ -47,6 +49,18 @@ class MemoryProductStorageSpec extends Specification {
         all.find({p -> p.id == testID}) == null
     }
 
+    def "updating a product which has a different id than the given one will throw a WrongIdException"() {
+        setup:
+        String pID = store.save(new Product())
+        Product p = new Product(id: "blblbl")
+
+        when:
+        store.update(pID, p)
+
+        then:
+        thrown WrongIdException
+    }
+
     def "modifying a product will change it in the list"() {
         setup:
         String pName = "The Tasty Ball"
@@ -55,7 +69,6 @@ class MemoryProductStorageSpec extends Specification {
         Product newVersion = new Product(id: pID, name: pName, description: pDesc)
 
         when:
-
         store.update(pID, newVersion)
 
         then:
@@ -66,10 +79,25 @@ class MemoryProductStorageSpec extends Specification {
     }
 
     def "getting a product by its id will throw a NotExistingProductException if it does not exits"() {
+        setup:
+        String pID = "blblbl"
 
+        when:
+        store.getByID(pID)
+
+        then:
+        thrown NotExistingProductException
     }
 
     def "getting a product by its id will return it if it does exist"() {
+        setup:
+        Product p = new Product()
+        String pID = store.save(p)
 
+        when:
+        Product pGet = store.getByID(pID)
+
+        then:
+        p == pGet
     }
 }

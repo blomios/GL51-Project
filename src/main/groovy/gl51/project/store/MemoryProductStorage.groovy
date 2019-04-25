@@ -1,12 +1,19 @@
 package gl51.project.store
 
+import gl51.project.store.exception.NotExistingProductException
+import gl51.project.store.exception.WrongIdException
+
 class MemoryProductStorage implements ProductStorage {
 
     private Map<String, Product> store = new HashMap<>()
 
     @Override
-    Product getByID(String id) {
-        return null
+    Product getByID(String id) throws NotExistingProductException {
+        if (!store.containsKey(id)) {
+            throw new NotExistingProductException()
+        } // else
+
+        return store.get(id)
     }
 
     @Override
@@ -22,8 +29,12 @@ class MemoryProductStorage implements ProductStorage {
     }
 
     @Override
-    void update(String id, Product p) {
+    void update(String id, Product p) throws WrongIdException {
+        if (p.id != null && id != p.id) {
+            throw new WrongIdException()
+        } // else
 
+        store.put(id, p)
     }
 
     @Override
