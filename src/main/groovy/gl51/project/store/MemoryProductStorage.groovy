@@ -11,7 +11,7 @@ class MemoryProductStorage implements ProductStorage {
     Product getByID(String id) throws NotExistingProductException {
         if (!store.containsKey(id)) {
             throw new NotExistingProductException()
-        } // else
+        }
 
         return store.get(id)
     }
@@ -30,15 +30,15 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     void update(String id, Product p) throws WrongIdException {
-        if (p.id != null && id != p.id) {
+        if (p.id == null || id != p.id) {
             throw new WrongIdException()
-        } // else
+        }
 
         store.put(id, p)
     }
 
     @Override
     void delete(String id) {
-        store.remove(id);
+        store.remove(id)
     }
 }
