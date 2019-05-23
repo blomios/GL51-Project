@@ -1,5 +1,6 @@
 package gl51.project.store
 
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
 
 import javax.inject.Inject
@@ -31,18 +32,21 @@ class ProductController {
     @Post("/")
     String create(@Body Product p) {
         try {
-            productStorage.save()
+            productStorage.save(p)
         } catch (Exception e) {
             e.printStackTrace()
+            HttpStatus.INTERNAL_SERVER_ERROR
         }
     }
 
     @Put("/{id}")
-    void update(String id, @Body Product p) {
+    HttpStatus update(String id, @Body Product p) {
         try {
             productStorage.update(id, p)
+            HttpStatus.OK
         } catch (Exception e) {
             e.printStackTrace()
+            HttpStatus.NOT_FOUND
         }
     }
 
@@ -50,8 +54,10 @@ class ProductController {
     void delete(String id) {
         try {
             productStorage.delete(id)
+            HttpStatus.OK
         } catch (Exception e) {
             e.printStackTrace()
+            HttpStatus.NOT_FOUND
         }
     }
 }

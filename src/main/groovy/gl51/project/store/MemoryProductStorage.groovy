@@ -3,6 +3,8 @@ package gl51.project.store
 import gl51.project.store.exception.NotExistingProductException
 import gl51.project.store.exception.WrongIdException
 
+import javax.inject.Singleton
+
 @Singleton
 class MemoryProductStorage implements ProductStorage {
 
@@ -31,7 +33,7 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     void update(String id, Product p) throws WrongIdException {
-        if (!p.id || id != p.id) {
+        if (!id || id != p.id) {
             throw new WrongIdException()
         } // else
 
