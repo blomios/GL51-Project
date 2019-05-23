@@ -30,7 +30,7 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     void update(String id, Product p) throws WrongIdException {
-        if (p.id != null && id != p.id) {
+        if (!p.id || id != p.id) {
             throw new WrongIdException()
         } // else
 
@@ -39,6 +39,6 @@ class MemoryProductStorage implements ProductStorage {
 
     @Override
     void delete(String id) {
-        store.remove(id);
+        store.remove(id)
     }
 }
