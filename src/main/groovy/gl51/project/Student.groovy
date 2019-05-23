@@ -1,4 +1,4 @@
-package projet.gl51
+package gl51.project
 
 class Student {
 

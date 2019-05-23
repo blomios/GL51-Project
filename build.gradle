@@ -5,6 +5,7 @@ plugins {
 
 apply plugin:"application"
 apply plugin:"groovy"
+apply plugin:"idea"
 
 version "0.1"
 group "gl51.project"
