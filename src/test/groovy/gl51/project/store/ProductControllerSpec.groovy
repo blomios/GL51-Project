@@ -1,5 +1,13 @@
 package gl51.project.store
 
+import io.micronaut.core.type.Argument
+import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.exceptions.HttpClientResponseException
+import io.micronaut.runtime.server.EmbeddedServer
+import spock.lang.AutoCleanup
+import spock.lang.Shared
 import spock.lang.Specification
 
 class ProductControllerSpec extends Specification {
