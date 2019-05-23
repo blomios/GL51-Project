@@ -1,6 +1,5 @@
 package gl51.project.store
 
-@Singleton
 interface ProductStorage {
 
     /**

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ProductController {
 
     @Inject
-    ProductStorage productStorage;
+    ProductStorage productStorage
 
     @Get("{id}")
     Product getByID(String id) {

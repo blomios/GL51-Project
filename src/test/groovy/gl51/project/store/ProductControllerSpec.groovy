@@ -1,5 +1,7 @@
 package gl51.project.store
 
+import spock.lang.Specification
+
 class ProductControllerSpec extends Specification {
 
     @Shared @AutoCleanup EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer)

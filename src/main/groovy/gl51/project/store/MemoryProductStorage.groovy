@@ -3,6 +3,7 @@ package gl51.project.store
 import gl51.project.store.exception.NotExistingProductException
 import gl51.project.store.exception.WrongIdException
 
+@Singleton
 class MemoryProductStorage implements ProductStorage {
 
     private Map<String, Product> store = new HashMap<>()
