@@ -17,6 +17,7 @@ class ProductController {
             productStorage.getByID(id)
         } catch (Exception e) {
             e.printStackTrace()
+            null
         }
     }
 

@@ -70,11 +70,37 @@ class ProductControllerSpec extends Specification {
 
         then:
         thrown HttpClientResponseException
-        product == null
+        !product
 
         where:
         name | description | price | idealTemperature
         "name1" | "desription1" | 4354 | 5
         "name2" | "desription2" | 13548 | 6
+    }
+
+    void "get product with non existing id -> NOT FOUND"() {
+        when:
+        Product product = client.toBlocking().retrieve(HttpRequest.GET('/product/blblbl'), Argument.of(Product).type)
+
+        then:
+        thrown HttpClientResponseException
+        !product
+    }
+
+    void "getting all the products returns the full list"() {
+        setup:
+        Product firstProduct = new Product(name: "1", description: "1", price: 1, idealTemperature: 1)
+        Product secondProduct = new Product(name: "2", description: "2", price: 2, idealTemperature: 2)
+        String id1 = client.toBlocking().retrieve(HttpRequest.POST('/product', firstProduct))
+        String id2 = client.toBlocking().retrieve(HttpRequest.POST('/product', secondProduct))
+        firstProduct.id = id1
+        secondProduct.id = id2
+
+        when:
+        List<Product> list = (List<Product>) client.toBlocking().retrieve(HttpRequest.GET('/product'), Argument.of(List).type)
+
+        then:
+        list.find {p -> p.id == id1}
+        list.find {p -> p.id == id2}
     }
 }
