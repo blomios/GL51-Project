@@ -1,5 +1,7 @@
 package gl51.project.store
 
+import gl51.project.store.exception.NotExistingProductException
+import gl51.project.store.exception.WrongIdException
 
 interface ProductStorage {
 
@@ -8,7 +10,7 @@ interface ProductStorage {
      * @param id the id of the wanted product
      * @return the product with the given id
      */
-    Product getByID(String id);
+    Product getByID(String id) throws NotExistingProductException;
 
     /**
      * Get and return all the products from the store
@@ -28,7 +30,7 @@ interface ProductStorage {
      * @param id the id of the product to update
      * @param product the product to update
      */
-    void update(String id, Product p);
+    void update(String id, Product p) throws WrongIdException;
 
     /**
      * Delete a product from the store

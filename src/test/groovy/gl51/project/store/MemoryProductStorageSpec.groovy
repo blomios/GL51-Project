@@ -34,7 +34,7 @@ class MemoryProductStorageSpec extends Specification {
         def all = store.all()
 
         then:
-        all.find({p -> p.name == "blblbl"}).id != null
+        all.find({p -> p.name == "blblbl"}).id
     }
 
     def "deleting a product will remove it from the list"(){
@@ -46,7 +46,7 @@ class MemoryProductStorageSpec extends Specification {
         def all = store.all()
 
         then:
-        all.find({p -> p.id == testID}) == null
+        !all.find({p -> p.id == testID})
     }
 
     def "updating a product which has a different id than the given one will throw a WrongIdException"() {
