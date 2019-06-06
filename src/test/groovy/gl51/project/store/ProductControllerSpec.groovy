@@ -60,6 +60,17 @@ class ProductControllerSpec extends Specification {
         "Vat iz it" | "Viz iz eu produkte" | 36 | 3 | "name4" | "description4" | 455632 | 12
     }
 
+    void "update with wrong id -> exception"() {
+        setup:
+        String id = client.toBlocking().retrieve(HttpRequest.POST('/product', new Product()))
+
+        when:
+        client.toBlocking().retrieve(HttpRequest.PUT('/product/blblbl', new Product()), Argument.of(HttpStatus).type)
+
+        then:
+        thrown HttpClientResponseException
+    }
+
     void "delete product -> product deleted from db"() {
         setup:
         String id = client.toBlocking().retrieve(HttpRequest.POST('/product', new Product(name: name, description: description, price: price, idealTemperature: idealTemperature)))
